@@ -6,6 +6,9 @@ public class PlayerMove : MonoBehaviour
 {
     // Start is called before the first frame update
     private CharacterController charController;
+    private CharacterAnimations playerAnimations;
+ 
+
     public float movement_speed = 3f;
     public float gravity = 9.8f;
     public float rotationSpeed = 0.15f;
@@ -13,7 +16,9 @@ public class PlayerMove : MonoBehaviour
 
     void Awake()
     {
-        charController = GetComponent<CharacterController>(); 
+        charController = GetComponent<CharacterController>();
+        playerAnimations = GetComponent<CharacterAnimations>();
+        
     }
 
     // Update is called once per frame
