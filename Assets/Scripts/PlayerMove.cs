@@ -26,10 +26,11 @@ public class PlayerMove : MonoBehaviour
     {
         Move();
         Rotate();
+        AnimateWalk();
     }
     void Move()
     {
-        print("the value is " + Input.GetAxis((Axis.VERTICAL_AXIS)));
+        //print("the value is " + Input.GetAxis((Axis.VERTICAL_AXIS)));
 
         if (Input.GetAxis(Axis.VERTICAL_AXIS) > 0)
         {
@@ -43,6 +44,10 @@ public class PlayerMove : MonoBehaviour
             moveDirection.y -= gravity * Time.deltaTime;
             charController.Move(moveDirection * movement_speed * Time.deltaTime);
 
+        }
+        else
+        {
+            charController.Move(Vector3.zero);
         }
 
     }
@@ -62,6 +67,18 @@ public class PlayerMove : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(
                 transform.rotation, Quaternion.LookRotation(rotation_Direction),
                 rotateDegreesPerSecond * Time.deltaTime);
+        }
+    }
+    void AnimateWalk()
+    {
+       // print("The velocity is : " + charController.velocity.sqrMagnitude);
+        if (charController.velocity.sqrMagnitude != 0f)
+        {
+            playerAnimations.Walk(true);
+        }
+        else
+        {
+            playerAnimations.Walk(false);
         }
     }
 
