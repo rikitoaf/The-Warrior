@@ -26,12 +26,19 @@ public class EnemyController : MonoBehaviour
 
     private EnemyState enemy_State;
 
+    public GameObject attackPoint;
+
+    private CharecterSoundFX soundFx;
+
+
     // Start is called before the first frame update
     void Awake()
     {
         enemy_Anim = GetComponent<CharacterAnimations>();
         navAgent = GetComponent<NavMeshAgent>();
         playerTarget = GameObject.FindGameObjectWithTag(Tags.PLAYER_TAG).transform;
+
+        soundFx = GetComponentInChildren<CharecterSoundFX>();
     }
 
     void Start()
@@ -85,12 +92,33 @@ public class EnemyController : MonoBehaviour
             if (Random.Range(0, 2) > 0)
             {
                 enemy_Anim.Attack_1();
+                soundFx.Attack_1();
             }
             else
             {
                 enemy_Anim.Attack_2();
+                soundFx.Attack_2();
             }
             attack_Timer = 0f;
+        }
+
+        if (Vector3.Distance(transform.position,playerTarget.position)>attack_Distance + chase_Player_After_Attack_Distance)
+        {
+            navAgent.isStopped = false;
+            enemy_State = EnemyState.CHASE;
+        }
+    }
+
+    void Activate_AttackPoint()
+    {
+        attackPoint.SetActive(true);
+    }
+    void Deactivate_AttackPoint()
+    {
+        
+        if (attackPoint.activeInHierarchy)
+        {
+            attackPoint.SetActive(false);
         }
     }
 }

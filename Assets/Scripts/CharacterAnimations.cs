@@ -23,7 +23,7 @@ public class CharacterAnimations : MonoBehaviour
     }
     public void Attack_1()
     {
-        print("coem");
+        
         anim.SetTrigger(AnimationTags.ATTACK_TRIGGER_1);
     }
     public void Attack_2()
